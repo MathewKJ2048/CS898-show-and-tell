@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>reveal.js</title>
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+	<h1>Show and tell</h1>
+	CS898<br>
+	Mathew Kuthur James<br>
+	29<sup>th</sup> May 2025
+</section>
+<section>
+	<h2>Regular Polygons</h2>
+	<br>
+	<img src="./images/regular-tessellations-triangle.png" width="30%">
+	<img src="./images/regular-tessellations-square.png" width="30%">
+	<img src="./images/regular-tessellations-hexagon.png" width="30%">
+</section>
+<section>
+	<p>What about pentagons?</p>
+	<img src="./images/regular-tessellations-pentagon-fail.png" width="30%"><br>
+	<p class="fragment">Can't be done on a flat plane</p>
+</section>
+<section>
+	<section>
+		<h2>Dodecahedron</h2>
+		<img src="./images/Dodecahedron.gif" width="40%"><br>
+		<p>Schläfli symbol: {5,3}</p>
+	</section>
+	<section>
+		<h2>Tetrahedron</h2>
+		<img src="./images/Tetrahedron.gif" width="40%"><br>
+		<p>Schläfli symbol: {3,3}</p>
+	</section>
+	<section>
+		<h2>Octahedron</h2>
+		<img src="./images/Octahedron.gif" width="40%"><br>
+		<p>Schläfli symbol: {3,4}</p>
+	</section>
+	<section>
+		<h2>Icosahedron</h2>
+		<img src="./images/Icosahedron.gif" width="40%"><br>
+		<p>Schläfli symbol: {3,5}</p>
+	</section>
+	<section>
+		<h2>Hexahedron</h2>
+		<img src="./images/Cube.gif" width="40%"><br>
+		<p>Schläfli symbol: {4,3}</p>
+	</section>
+</section>
+<section>
+	<ul>
+		<li>Schläfli symbol {p,q} ↔ p-gons, q per vertex</li>
+		<li class="fragment">Total angle: 2π</li>
+		<li class="fragment">Angle per polygon: π(p-2)/p</li>
+		<li class="fragment">(π(p-2)/p)⋅q ≤ 2π</li>
+		<li class="fragment">(p-2)⋅(q-2) ≤ 4</li>
+	</ul>
+</section>
+<section>
+	<p>What about heptagons?</p>
+	<img src="./images/regular-tessellations-heptagon-fail.png" width="30%"><br>
+	<p class="fragment">p = 7, q = 3</p>
+	<p class="fragment">(p-2)⋅(q-2) = 5⋅1 > 4</p>
+</section>
+<section>
+	<section data-auto-animate>
+		<h2>Rethinking the basics</h2>
+		Euclid's Postulates
+		<img src="./images/EuclidsPostulates.png" width="100%"><br>
+	</section>
+	<section data-auto-animate>
+		<h2>Rethinking the basics</h2>
+		Euclid's Fifth Postulate<br><br>
+		"If two lines are drawn which intersect a third in such a way that the sum of the inner angles on one side is less than two right angles, then the two lines inevitably must intersect each other on that side if extended far enough."
+	</section>
+	<section data-auto-animate>
+		<h2>Rethinking the basics</h2>
+		Hyperbolic geometry
+		<img src="./images/meme.png" width="100%"><br>
+	</section>
+</section>
+<section>
+	<img src="./images/heptagonal-tiling.png" width="70%"><br>
+</section>
+<section>
+	<h2>Algorithmic Generation</h2>
+	<ul>
+		<li>Each tile has exactly 7 neighbours</li>
+		<li>A tile and its neighbour share exactly 2 neighbours</li>
+	</ul>
+<pre class="fragment"><code data-trim data-noescape data-line-numbers="1-12|2-7|8-10|11|12">
+propagate(Tile t):
+	n = len(t.neighbours)
+	new_neighbours = []
+	for i in range(7-n):
+		u = Tile()
+		link(t,u)
+		new_neighbours.append(u)
+	m = len(new_neighbours)
+	for i in range(m):
+		link(new_neighbours[i],new_neighbours[(i+1)%m])
+	link(new_neighbours[0],neighbours[0])
+	link(new_neighbours[n-1],neighbours[m-1])
+</code></pre>
+</section>
+<section data-auto-animate>
+	<h2>Real-life examples</h2>
+	<p>If you come across this tiling in real life...</p>
+	<div class="fragment">
+		<img src="./images/ryleh.jpeg" width="100%"><br>
+		<p>You're probably living in a H.P. Lovecraft novel</p>
+	</div>
+</section>
+<section data-auto-animate>
+	<h2>Real-life examples</h2>
+	<img src="./images/bitrunc.png" width="50%"><br>
+	HyperRogue
+</section>
+<section data-auto-animate>
+	<h2>Real-life examples</h2>
+	<img src="./images/coral.jpg" style="width: 70%;">
+	<p class="fragment">Hyperbolic crochet corals at the Venice Biennale 2019</p>
+</section>
+<section>
+	<h1>Thank You!</h1>
+	Questions and Comments
+</section>
+</div>
+</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			pdfSeparateFragments: false,
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			
+		});
+	</script>
+</body>
+</html>
